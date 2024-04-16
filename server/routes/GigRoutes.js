@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   addGig,
+  deleteGig,
   checkGigOrder,
   editGig,
   getGigData,
@@ -14,7 +15,8 @@ import { verifyToken } from "../middlewares/AuthMiddleware.js";
 const upload = multer({ dest: "uploads/" });
 
 export const gigRoutes = Router();
-
+// DELETE /gigs/:gigId
+gigRoutes.delete('/:gigId', verifyToken, deleteGig);
 gigRoutes.post("/add", verifyToken, upload.array("images"), addGig);
 gigRoutes.get("/get-user-gigs", verifyToken, getUserAuthGigs);
 gigRoutes.get("/get-gig-data/:gigId", getGigData);

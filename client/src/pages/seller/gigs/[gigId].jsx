@@ -1,10 +1,12 @@
 import ImageUpload from "../../../components/ImageUpload";
 import { categories } from "../../../utils/categories";
-import { EDIT_GIG_DATA, GET_GIG_DATA } from "../../../utils/constants";
+import { EDIT_GIG_DATA, GET_GIG_DATA} from "../../../utils/constants";
 import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
+
+
 
 function EditGig() {
   const [cookies] = useCookies();
@@ -50,11 +52,22 @@ function EditGig() {
           data: { gig },
         } = await axios.get(`${GET_GIG_DATA}/${gigId}`);
 
-        setData({ ...gig, time: gig.revisions });
+        //setData({ ...gig, time: gig.revisions });
+        setData({
+          title: gig.title || "", // Ensure gig.title is not undefined
+          description: gig.description,
+          category: gig.category,
+          features: gig.features || [], // Ensure gig.features is not undefined
+          price: gig.price,
+          revisions: gig.revisions,
+          time: gig.revisions,
+          shortDesc: gig.shortDesc,
+        });
+        
         setfeatures(gig.features);
 
         gig.images.forEach((image) => {
-          const url = "http://localhost:8747/uploads/" + image;
+          const url = "http://localhost:3001/uploads/" + image;
           const fileName = image;
           fetch(url).then(async (response) => {
             const contentType = response.headers.get("content-type");
@@ -98,7 +111,7 @@ function EditGig() {
         shortDesc,
       };
       const response = await axios.put(
-        `${EDIT_GIG_DATA}/${data.id}`,
+        `${EDIT_GIG_DATA}/${gigId}`,
         formData,
         {
           withCredentials: true,
@@ -114,6 +127,7 @@ function EditGig() {
       }
     }
   };
+
   return (
     <div className="min-h-[80vh] my-10 mt-0 px-32">
       <h1 className="text-6xl text-gray-900 mb-5">Edit Gig</h1>
@@ -278,7 +292,7 @@ function EditGig() {
             />
           </div>
         </div>
-        <div>
+        <div className="flex gap-4">
           <button
             className="border   text-lg font-semibold px-5 py-3   border-[#1DBF73] bg-[#1DBF73] text-white rounded-md"
             type="button"

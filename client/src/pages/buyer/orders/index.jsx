@@ -48,6 +48,9 @@ function Orders() {
               <th scope="col" className="px-6 py-3">
                 Send Message
               </th>
+              <th scope="col" className="px-6 py-3">
+                Cancel Order
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -73,7 +76,7 @@ function Orders() {
                       href={`/buyer/orders/messages/${order.id}`}
                       className="font-medium text-blue-600  hover:underline"
                     >
-                      Send
+                      Message Seller
                     </Link>
                   </td>
                 </tr>

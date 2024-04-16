@@ -71,7 +71,7 @@ function HomeBanner() {
           Find the perfect&nbsp;
           <i>freelance</i>
           <br />
-          services for your business
+          services for your business in New Zealand
         </h1>
         <div className="flex align-middle">
           <div className="relative">

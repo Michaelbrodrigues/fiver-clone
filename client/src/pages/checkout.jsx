@@ -7,7 +7,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "../components/CheckoutForm";
 import { useRouter } from "next/router";
 
-const stripePromise = loadStripe("pk_test_xeqIPdYS2PpKbHmKG4gJqpde");
+const stripePromise = loadStripe("pk_test_51HoFoRJdlQkvvUXmtgei7KUNnZRdCx6lMliXXqOp9ikqkikHkZO15w1eDPaXJpQEBpSpiXnIdCqFIjaALay3TuZG00pfbCiRYE");
 
 function Checkout() {
   const [clientSecret, setClientSecret] = useState("");

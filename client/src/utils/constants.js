@@ -22,11 +22,14 @@ export const EDIT_GIG_DATA = `${GIG_ROUTES}/edit-gig`;
 export const SEARCH_GIGS_ROUTE = `${GIG_ROUTES}/search-gigs`;
 export const CHECK_USER_ORDERED_GIG_ROUTE = `${GIG_ROUTES}/check-gig-order`;
 export const ADD_REVIEW = `${GIG_ROUTES}/add-review`;
+export const DELETE_GIG_ROUTE = `${GIG_ROUTES}/delete-gig`;
 
 export const CREATE_ORDER = `${ORDERS_ROUTES}/create`;
 export const ORDER_SUCCESS_ROUTE = `${ORDERS_ROUTES}/success`;
 export const GET_BUYER_ORDERS_ROUTE = `${ORDERS_ROUTES}/get-buyer-orders`;
 export const GET_SELLER_ORDERS_ROUTE = `${ORDERS_ROUTES}/get-seller-orders`;
+export const CANCEL_ORDER_ROUTE = `${ORDERS_ROUTES}/cancel-order`;
+
 
 export const GET_MESSAGES = `${MESSAGES_ROUTES}/get-messages`;
 export const ADD_MESSAGE = `${MESSAGES_ROUTES}/add-message`;

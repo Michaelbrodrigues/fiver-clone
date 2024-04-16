@@ -53,6 +53,24 @@ export const addGig = async (req, res, next) => {
   }
 };
 
+
+// Function to delete a gig
+export const deleteGig = async (req, res, next) => {
+  try {
+    if (req.params.gigId) {
+      const prisma = new PrismaClient();
+      await prisma.gigs.delete({
+        where: { id: (req.params.gigId) },
+      });
+      return res.status(200).send("Successfully deleted the gig.");
+    }
+    return res.status(400).send("GigId should be required.");
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send("Internal Server Error");
+  }
+};
+
 export const getUserAuthGigs = async (req, res, next) => {
   try {
     if (req.userId) {
@@ -75,7 +93,7 @@ export const getGigData = async (req, res, next) => {
     if (req.params.gigId) {
       const prisma = new PrismaClient();
       const gig = await prisma.gigs.findUnique({
-        where: { id: parseInt(req.params.gigId) },
+        where: { id: (req.params.gigId) },
         include: {
           reviews: {
             include: {
@@ -145,10 +163,10 @@ export const editGig = async (req, res, next) => {
         } = req.query;
         const prisma = new PrismaClient();
         const oldData = await prisma.gigs.findUnique({
-          where: { id: parseInt(req.params.gigId) },
+          where: { id: (req.params.gigId) },
         });
         await prisma.gigs.update({
-          where: { id: parseInt(req.params.gigId) },
+          where: { id: (req.params.gigId) },
           data: {
             title,
             description,
@@ -158,7 +176,7 @@ export const editGig = async (req, res, next) => {
             price: parseInt(price),
             shortDesc,
             revisions: parseInt(revisions),
-            createdBy: { connect: { id: parseInt(req.userId) } },
+            createdBy: { connect: { id: (req.userId) } },
             images: fileNames,
           },
         });
@@ -224,8 +242,8 @@ const checkOrder = async (userId, gigId) => {
     const prisma = new PrismaClient();
     const hasUserOrderedGig = await prisma.orders.findFirst({
       where: {
-        buyerId: parseInt(userId),
-        gigId: parseInt(gigId),
+        buyerId: (userId),
+        gigId: (gigId),
         isCompleted: true,
       },
     });

@@ -1,7 +1,8 @@
-import { GET_USER_GIGS_ROUTE } from "../../../utils/constants";
+import { GET_USER_GIGS_ROUTE, GIG_ROUTES } from "../../../utils/constants";
 import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+//import { deleteGig } from "../../../../../server/controllers/GigsController";
 
 function Index() {
   const [gigs, setGigs] = useState([]);
@@ -20,6 +21,19 @@ function Index() {
     };
     getUserGigs();
   }, []);
+
+  const deleteGig = async (id) => {
+    try {
+      await axios.delete(`${GIG_ROUTES}/${id}`, {
+        withCredentials: true,
+      });
+      setGigs(gigs.filter((gig) => gig.id !== id));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+
   return (
     <div className="min-h-[80vh] my-10 mt-0 px-32">
       <h3 className="m-5 text-2xl font-semibold">All your Gigs</h3>
@@ -71,6 +85,15 @@ function Index() {
                       Edit
                     </Link>
                   </td>
+                  <td className="px-6 py-4"> 
+                  <button
+                    className="border   text-lg font-semibold px-5 py-3   border-[#1DBF73] bg-[#1DBF73] text-white rounded-md"
+                    type="button"
+                    onClick={() => deleteGig(id)}
+                    >
+                    Delete Gig
+                    </button> 
+                    </td>
                 </tr>
               );
             })}
